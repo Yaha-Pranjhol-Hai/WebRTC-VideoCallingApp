@@ -16,5 +16,10 @@ io.on("connection", (socket) => {
         io.to(room).emit("user:joined", { email, id: socket.id});
         socket.join(room);
         io.to(socket.id).emit("room:join",data);
+    });
+
+
+    socket.on('user:call', ({to, offer}) => {
+        io.to(to).emit("incoming:call", { from: socket.id, offer });
     })
 })
